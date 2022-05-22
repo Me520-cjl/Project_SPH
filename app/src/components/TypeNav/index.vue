@@ -2,7 +2,62 @@
   <!-- 商品分类导航 -->
   <div class="type-nav">
     <div class="container">
-      <h2 class="all">全部商品分类</h2>
+      <div @mouseleave="leaveIndex()" @mouseenter="entershow()">
+        <h2 class="all">全部商品分类</h2>
+        <!-- 过度动画 -->
+        <transition name="sort">
+          <div class="sort" v-show="show">
+            <!-- 利用事件委派+编程式导航实现路由的跳转和传递参数 -->
+            <div class="all-sort-list2" @click="goSearch">
+              <div
+                class="item"
+                v-for="(c1, index) in categoryList"
+                :key="c1.categoryId"
+                :class="{ cur: currentIndex == index }"
+              >
+                <!-- 一级分类 -->
+                <h3 @mouseenter="changeIndex(index)">
+                  <a
+                    :data-categoryName="c1.categoryName"
+                    :data-categoryId1="c1.categoryId"
+                    >{{ c1.categoryName }}</a
+                  >
+                </h3>
+                <div
+                  class="item-list clearfix"
+                  :style="{ display: currentIndex == index ? 'block' : 'none' }"
+                >
+                  <!-- 二级分类 -->
+                  <div class="subitem">
+                    <dl
+                      class="fore"
+                      v-for="c2 in c1.categoryChild"
+                      :key="c2.categoryId"
+                    >
+                      <dt>
+                        <a
+                          :data-categoryName="c2.categoryName"
+                          :data-categoryId2="c2.categoryId"
+                          >{{ c2.categoryName }}</a
+                        >
+                      </dt>
+                      <dd>
+                        <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
+                          <a
+                            :data-categoryName="c3.categoryName"
+                            :data-categoryId3="c3.categoryId"
+                            >{{ c3.categoryName }}</a
+                          >
+                        </em>
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </transition>
+      </div>
       <nav class="nav">
         <a href="###">服装城</a>
         <a href="###">美妆馆</a>
@@ -13,45 +68,84 @@
         <a href="###">有趣</a>
         <a href="###">秒杀</a>
       </nav>
-      <div class="sort">
-        <div class="all-sort-list2">
-          <div class="item" v-for="c1 in categoryList" :key="c1.categoryId">
-            <h3>
-              <a href="">{{ c1.categoryName }}</a>
-            </h3>
-            <div class="item-list clearfix">
-              <div class="subitem">
-                <dl
-                  class="fore"
-                  v-for="c2 in c1.categoryChild"
-                  :key="c2.categoryId"
-                >
-                  <dt>
-                    <a href="">{{ c2.categoryName }}</a>
-                  </dt>
-                  <dd>
-                    <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
-                      <a href="">{{ c3.categoryName }}</a>
-                    </em>
-                  </dd>
-                </dl>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+//引入方式，把lodash所有功能函数引入
+import throttle from "lodash/throttle";
 export default {
   name: "TypeNav",
+  data() {
+    return {
+      //存储用户鼠标上移哪一个一级分类
+      currentIndex: -1,
+      show: true,
+    };
+  },
   //组件挂载完毕，可以向服务器发请求
   mounted() {
     //通知Vuex发请求，获取数据，存储在仓库中
     this.$store.dispatch("categoryList");
+    //当组件挂载完毕，让show属性变为false
+    //如果不是home路由组件，将typanav进行隐藏
+    if (this.$route.path != "/home") {
+      this.show = false;
+    } else {
+      this.show = true;
+    }
+  },
+  methods: {
+    //鼠标进入修改样式currentIndex的属性
+    //throttle回调函数别调用箭头函数，可能出现上下文this问题
+    changeIndex: throttle(function (index) {
+      //index：鼠标移上某一个一级分类的元素的索引值
+      //正常情况下（用户慢慢的操作）：鼠标进入，每一个一级分类都会触发鼠标进入事件
+      //非正常情况（用户操作很快）：只有部分一级分类触发了事件，就是用户行为过快，导致浏览器反应不过来，如果当前函数中有大量业务，浏览器可能反应不过来
+      this.currentIndex = index;
+    }, 50),
+    //鼠标离开修改样式currentIndex的属性
+    leaveIndex() {
+      this.currentIndex = -1;
+      if (this.$route.path != "/home") {
+        this.show = false;
+      }
+    },
+    goSearch(event) {
+      //最好的方案：编程式导航+事件委派
+      //存在一些问题：事件委派是把所有的子节点【h3\dt\dl\dm】的事件委派给了父亲节点
+      //点击a标签的时候，才会进行路由的跳转，【怎么能确定点击的一定是a标签】
+      //存在另外一个问题：即使你能确定点击的是a标签，如何区分是一级、二级、三级分类的标签
+
+      //第一个问题：把子节点当中的a标签,加上自定义属性data-categoryName，其余的子节点是没有的
+      let element = event.target;
+      //获取到触发当前事件的节点
+      //节点有一点儿属性dataset,可以获取到当前自定义节点的属性和属性值
+      let { categoryname, categoryid1, categoryid2, categoryid3 } =
+        element.dataset;
+      if (categoryname) {
+        //整理路由跳转的参数
+        let location = { name: "search" };
+        let query = { categoryName: categoryname };
+        //一级分类、二级分类、三级分类
+        if (categoryid1) {
+          query.categoryid1 = categoryid1;
+        } else if (categoryid2) {
+          query.categoryid2 = categoryid2;
+        } else {
+          query.categoryid3 = categoryid3;
+        }
+        //整理完参数
+        location.query = query;
+        //路由跳转
+        this.$router.push(location);
+      }
+    },
+    entershow() {
+      this.show = true;
+    },
   },
   computed: {
     //右侧需要的是一个函数，当使用这个计算属性的时候，右侧函数会立即执行一次
@@ -64,7 +158,6 @@ export default {
   },
 };
 </script>
-
 <style scoped lang='less'>
 .type-nav {
   border-bottom: 2px solid #e1251b;
@@ -175,13 +268,29 @@ export default {
             }
           }
 
-          &:hover {
-            .item-list {
-              display: block;
-            }
-          }
+          // &:hover {
+          //   .item-list {
+          //     display: block;
+          //   }
+          // }
+        }
+        .cur {
+          background: skyblue;
         }
       }
+    }
+    //过度动画的样式
+    //过度动画的开始状态
+    .sort-enter {
+      height: 0;
+    }
+    //过度动画结束状态
+    .sort-enter-to {
+      height: 461px;
+    }
+    //定义动画时间、速率
+    .sort-enter-active {
+      transition: all 0.5s linear;
     }
   }
 }
