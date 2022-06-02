@@ -74,11 +74,14 @@ export default {
       //   `/search/${this.keyword}?k=${this.keyword}.toUpperCase()`
       // );
       //3、对象*推荐*
-      this.$router.push({
-        name: "search",
-        params: { keyword: this.keyword },
-        query: { k: this.keyword.toUpperCase() },
-      });
+      if (this.$route.query) {
+        let location = {
+          name: "search",
+          params: { keyword: this.keyword },
+        };
+        location.query = this.$route.query;
+        this.$router.push(location);
+      }
       /***********************************/
       //   路由传递参数先关面试题
       //  1:路由传递参数（对象写法）path是否可以结合params参数一起使用?

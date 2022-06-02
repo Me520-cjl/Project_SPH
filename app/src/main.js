@@ -12,6 +12,8 @@ Vue.component(TypeNav.name, TypeNav)
 import store from '@/store'
 import router from '@/router'
 
+//引入MockServe.js----mock数据
+// import '@/mock/mockServe'
 new Vue({
     render: h => h(App),
     //注册路由：地下的写法是kv一致省略v
