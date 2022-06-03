@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import axios from "axios"
+import 'swiper/css/swiper.css';
 
 Vue.config.productionTip = false
     //引入三级联动组件-Typenav
@@ -13,7 +14,7 @@ import store from '@/store'
 import router from '@/router'
 
 //引入MockServe.js----mock数据
-// import '@/mock/mockServe'
+import '@/mock/mockServe'
 new Vue({
     render: h => h(App),
     //注册路由：地下的写法是kv一致省略v
