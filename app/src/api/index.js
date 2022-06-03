@@ -9,3 +9,4 @@ export const reqCategoryList = () => service({ url: '/product/getBaseCategoryLis
     //     requests({ url: '/product/getBaseCategoryList', methods: 'get' })
     // }
 export const reqGetBannerList = () => mockRequests.get('/banner');
+export const reqFloorList = () => mockRequests.get('/floor');
