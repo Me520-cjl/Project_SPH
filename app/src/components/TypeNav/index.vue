@@ -107,9 +107,9 @@ export default {
     //鼠标离开修改样式currentIndex的属性
     leaveIndex() {
       this.currentIndex = -1;
-      if (this.$route.path !== "/"||this.$route.path !== "/home") {
-        //console.log(this.$route.path);
-        this.show = false;
+      if (this.$route.path !== "/"&&this.$route.path !== "/home") {
+        console.log(this.$route.path);
+        this.show = true;
       }
     },
     goSearch(event) {

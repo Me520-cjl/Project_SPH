@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import axios from "axios"
+import 'swiper/css/swiper.css';
 
 Vue.config.productionTip = false
     //引入三级联动组件-Typenav

@@ -1,6 +1,6 @@
 [{
         "id": "1",
-        "imgUrl": "/images/banner1.jpg"
+        "imgUrl": "./images/banner1.jpg"
     },
     {
         "id": "2",
@@ -8,10 +8,10 @@
     },
     {
         "id": "3",
-        "imgUrl": "/images/banner3.jpg"
+        "imgUrl": "./images/banner3.jpg"
     },
     {
         "id": "4",
-        "imgUrl": "/images/banner4.jpg"
+        "imgUrl": "./images/banner4.jpg"
     }
 ]
