@@ -80,6 +80,7 @@ export default {
           params: { keyword: this.keyword },
         };
         location.query = this.$route.query;
+        //this.$router.push("/search");
         this.$router.push(location);
       }
       /***********************************/

@@ -105,7 +105,7 @@ export default {
   name: "ListContainer",
   mounted() {
     //派发action:通过VUEX发起ajax请求，将数据存储在仓库中
-    //this.$store.dispatch("getBannerList");
+    this.$store.dispatch("getBannerList");
   },
 };
 </script>

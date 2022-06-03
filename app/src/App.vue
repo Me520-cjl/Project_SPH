@@ -2,7 +2,7 @@
   <div id="app">
     <!-- 在Home、Search显示 -->
     <Header></Header>
-    <!-- 路由组件出口hah -->
+    <!-- 路由组件出口 -->
     <router-view></router-view>
     <!-- 在Home、Search显示 -->
     <Footer v-show="$route.meta.Footer_show"></Footer>
