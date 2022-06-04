@@ -6,7 +6,11 @@
         <!--banner轮播-->
         <div class="swiper-container" ref="mySwiper">
           <div class="swiper-wrapper">
-            <div class="swiper-slide" v-for="(carousel) in bannerList" :key="carousel.id">
+            <div
+              class="swiper-slide"
+              v-for="carousel in bannerList"
+              :key="carousel.id"
+            >
               <img :src="carousel.imgUrl" />
             </div>
           </div>
@@ -92,56 +96,54 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import Swiper from 'swiper';
+import { mapState } from "vuex";
+import Swiper from "swiper";
 export default {
   name: "ListContainer",
   //mounted组件挂载完毕,正常说结构已经有了
-    //为什么switer实例不能在这里使用，因为结构还没完整，正确的要在watch里面使用
+  //为什么switer实例不能在这里使用，因为结构还没完整，正确的要在watch里面使用
   mounted() {
     //派发action:通过VUEX发起ajax请求，将数据存储在仓库中
-    this.$store.dispatch("getBannerList");      
+    this.$store.dispatch("getBannerList");
   },
-  computed:{
+  computed: {
     ...mapState({
-      bannerList:state => state.home.bannerList,
+      bannerList: (state) => state.home.bannerList,
     }),
   },
-  watch:{
+  watch: {
     //监听bannerList数据的变化：因为这条数据发送过变化----由空数组变为有元素的数组
-    bannerList:{
+    bannerList: {
       //现在咱们通过watch 监听bannerList属性的属性值变化，
       //如果执行handler方法，代表组件实例身上这个属性的属性已经有了，
       //当这个函数执行，只能保证bannerList数据已经有了，但是不能保证v-for已经执行完毕（执行完毕才有的结构）
       //nextTick：在下次DOM更新循环结束后执行延迟回调。在修改数据后立即使用这个方法，获取更新后的DOM
-      handler(newValue, oldValue){
-      this.$nextTick(()=>{
+      handler(newValue, oldValue) {
+        this.$nextTick(() => {
           //
-    var mySwiper = new Swiper (this.$refs.mySwiper, {
-    autoplay:{delay:3000},
-    //direction: 'vertical', // 垂直切换选项
-    loop: true, // 循环模式选项
-    // 如果需要分页器
-    pagination: {
-      el: '.swiper-pagination',
-      clickable:'true'
+          var mySwiper = new Swiper(this.$refs.mySwiper, {
+            autoplay: { delay: 3000 },
+            //direction: 'vertical', // 垂直切换选项
+            loop: true, // 循环模式选项
+            // 如果需要分页器
+            pagination: {
+              el: ".swiper-pagination",
+              clickable: "true",
+            },
+            // 如果需要前进后退按钮
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            },
+            // 如果需要滚动条
+            scrollbar: {
+              el: ".swiper-scrollbar",
+            },
+          });
+        });
+      },
     },
-    
-    // 如果需要前进后退按钮
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-    
-    // 如果需要滚动条
-    scrollbar: {
-      el: '.swiper-scrollbar',
-    },
-  })  
-        })
-      }
-    }
-  }
+  },
 };
 </script>
 
