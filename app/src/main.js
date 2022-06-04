@@ -6,8 +6,10 @@ import 'swiper/css/swiper.css';
 Vue.config.productionTip = false
     //引入三级联动组件-Typenav
 import TypeNav from '@/components/TypeNav'
+import Carousel from '@/components/Carousel'
 //注册全局组件
 Vue.component(TypeNav.name, TypeNav)
+Vue.component(Carousel.name, Carousel)
     //引入路由
     //引入仓库
 import store from '@/store'

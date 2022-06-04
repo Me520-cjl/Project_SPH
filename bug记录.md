@@ -20,3 +20,4 @@ service = axios.create
 > > > > > > > day4
 
 ####4、不知道有没有改过什么配置，大轮播图的图片不显示了，需要把“/images”去掉
+有可能之前就把/images 去掉了
