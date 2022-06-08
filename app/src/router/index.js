@@ -44,7 +44,7 @@ export default new VueRouter({
         },
         {
             name: "search",
-            path: "/search/:keyword",
+            path: "/search/:keyword?",
             component: Search,
             meta: {
                 //Footer是否显示标志量

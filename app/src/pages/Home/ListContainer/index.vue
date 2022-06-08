@@ -84,7 +84,6 @@ import { mapState } from "vuex";
 import Carousel from "@/components/Carousel/index.vue";
 export default {
   name: "ListContainer",
-  props: ["bannerList"],
   components: { Carousel },
   //mounted组件挂载完毕,正常说结构已经有了
   //为什么switer实例不能在这里使用，因为结构还没完整，正确的要在watch里面使用

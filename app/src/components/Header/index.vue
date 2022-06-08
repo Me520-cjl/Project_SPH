@@ -63,7 +63,6 @@ export default {
   methods: {
     //添加搜索路由并传递参数
     goSearch() {
-      console.log(this.keyword);
       //路由传递参数
       //1、字符串形式
       // this.$router.push(
@@ -77,10 +76,9 @@ export default {
       if (this.$route.query) {
         let location = {
           name: "search",
-          params: { keyword: this.keyword },
+          params: { keyword: this.keyword || undefined },
         };
         location.query = this.$route.query;
-        //this.$router.push("/search");
         this.$router.push(location);
       }
       /***********************************/

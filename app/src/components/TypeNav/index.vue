@@ -88,12 +88,12 @@ export default {
   //组件挂载完毕，可以向服务器发请求
   mounted() {
     //通知Vuex发请求，获取数据，存储在仓库中
-    this.$store.dispatch("categoryList");
+    //this.$store.dispatch("categoryList");
     //当组件挂载完毕，让show属性变为false
     //如果不是home路由组件，将typanav进行隐藏
-    if (this.$route.path != "/home" && this.$route.path != "/") {
-      this.show = false;
-    }
+    // if (this.$route.path != "/home") {
+    //   this.show = false;
+    // }
   },
   methods: {
     //鼠标进入修改样式currentIndex的属性
@@ -107,8 +107,13 @@ export default {
     //鼠标离开修改样式currentIndex的属性
     leaveIndex() {
       this.currentIndex = -1;
-      if (this.$route.path !== "/"&&this.$route.path !== "/home") {
-        console.log(this.$route.path);
+      if (this.$route.path !== "/home") {
+        // console.log(this.$route.path);
+        this.show = false;
+      }
+    },
+    entershow() {
+      if (this.$route.path !== "/home") {
         this.show = true;
       }
     },
@@ -145,9 +150,6 @@ export default {
           this.$router.push(location);
         }
       }
-    },
-    entershow() {
-      this.show = true;
     },
   },
   computed: {

@@ -22,6 +22,7 @@ export default {
   mounted() {
     //派发一个action||获取typenav数据
     this.$store.dispatch("categoryList");
+    this.$router.push("/home");
   },
 };
 </script>
