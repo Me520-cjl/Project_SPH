@@ -136,11 +136,11 @@ export default {
         let query = { categoryName: categoryname };
         //一级分类、二级分类、三级分类
         if (categoryid1) {
-          query.categoryid1 = categoryid1;
+          query.category1Id = categoryid1;
         } else if (categoryid2) {
-          query.categoryid2 = categoryid2;
+          query.category2Id = categoryid2;
         } else {
-          query.categoryid3 = categoryid3;
+          query.category3Id = categoryid3;
         }
         if (this.$route.params) {
           //整理完参数
