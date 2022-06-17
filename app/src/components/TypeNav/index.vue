@@ -91,9 +91,9 @@ export default {
     //this.$store.dispatch("categoryList");
     //当组件挂载完毕，让show属性变为false
     //如果不是home路由组件，将typanav进行隐藏
-    // if (this.$route.path != "/home") {
-    //   this.show = false;
-    // }
+    if (this.$route.path != "/home") {
+      this.show = false;
+    }
   },
   methods: {
     //鼠标进入修改样式currentIndex的属性
@@ -124,7 +124,7 @@ export default {
       //存在另外一个问题：即使你能确定点击的是a标签，如何区分是一级、二级、三级分类的标签
 
       //第一个问题：把子节点当中的a标签,加上自定义属性data-categoryName，其余的子节点是没有的
-      // this.show = false;
+      this.show = false;
       let element = event.target;
       //获取到触发当前事件的节点
       //节点有一点儿属性dataset,可以获取到当前自定义节点的属性和属性值
