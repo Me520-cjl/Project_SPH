@@ -2,8 +2,8 @@
   <!-- 商品分类导航 -->
   <div class="type-nav">
     <div class="container">
-      <div @mouseleave="leaveIndex()" @mouseenter="entershow()">
-        <h2 class="all">全部商品分类</h2>
+      <div @mouseleave="leaveIndex()">
+        <h2 class="all" @mouseenter="entershow()">全部商品分类</h2>
         <!-- 过度动画 -->
         <transition name="sort">
           <div class="sort" v-show="show">
@@ -87,6 +87,7 @@ export default {
   },
   //组件挂载完毕，可以向服务器发请求
   mounted() {
+    this.show = true;
     //通知Vuex发请求，获取数据，存储在仓库中
     //this.$store.dispatch("categoryList");
     //当组件挂载完毕，让show属性变为false
@@ -94,6 +95,7 @@ export default {
     if (this.$route.path != "/home") {
       this.show = false;
     }
+    // console.log(this.$route.path);
   },
   methods: {
     //鼠标进入修改样式currentIndex的属性

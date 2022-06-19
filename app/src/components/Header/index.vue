@@ -96,6 +96,12 @@ export default {
       //三、函数写法（常用）：可以params参数、query参数，通过props传递给路由组件props:($route)=>{return{keyword:$route.params.keyword,k:$route.query.k}}
     },
   },
+  mounted() {
+    //通过全局事件总线清除关键字
+    this.$bus.$on("clear", () => {
+      this.keyword = "";
+    });
+  },
 };
 </script>
 
