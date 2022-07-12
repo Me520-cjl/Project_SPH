@@ -7,3 +7,6 @@ service = axios.create 在request.js中配置baseURL失败的原因是service = 
 ###2、编程式导航URL没有改变
 
 ###3、轮播图动态显示没有图片 原因：没有在public文件夹引入图片，pubic文件夹的图片会在packback打包时打包
+
+###4、search 模块警告
+    v-if v-for 不能同时使用，会导致vue无效运行性能降低

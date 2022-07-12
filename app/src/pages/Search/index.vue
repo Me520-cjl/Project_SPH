@@ -66,14 +66,15 @@
               </ul>
             </div>
           </div>
+          <!-- 商品列表 -->
           <div class="goods-list">
             <ul class="yui3-g">
               <li class="yui3-u-1-5" v-for="good in goodsList" :key="good.id">
                 <div class="list-wrap">
                   <div class="p-img">
-                    <a href="item.html" target="_blank"
-                      ><img :src="good.defaultImg"
-                    /></a>
+                    <router-link :to="`/detail/${good.id}`"
+                      ><img :src="good.defaultImg" />
+                    </router-link>
                   </div>
                   <div class="price">
                     <strong>
@@ -108,7 +109,14 @@
             </ul>
           </div>
           <!-- 分页器 -->
-          <Pagenation />
+          <Pagenation
+            :pageNo="searchParams.pageNo"
+            :pageSize="searchParams.pageSize"
+            :total="total"
+            :continues="5"
+            @getPageNo="getPageNo"
+          />
+          <!-- 分页器:测试分页器阶段，这里数据将来需要替换的-->
         </div>
       </div>
     </div>
@@ -278,6 +286,13 @@ export default {
       }
       //需要给order重新赋值
       this.searchParams.order = newOrder;
+      //再次发请求
+      this.getData();
+    },
+    //自定义事件的回调函数---获取当前第几页
+    getPageNo(pageNo) {
+      //整理带给服务器参数
+      this.searchParams.pageNo = pageNo;
       //再次发请求
       this.getData();
     },

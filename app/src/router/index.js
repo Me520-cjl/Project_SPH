@@ -8,6 +8,7 @@ import Home from '@/pages/Home'
 import Search from '@/pages/Search'
 import Login from '@/pages/Login'
 import Register from '@/pages/Register'
+import Detail from '@/pages/Detail'
 //先把VueRouter原型对象的push,先保存一份
 let originPush = VueRouter.prototype.push;
 //重写push|replace
@@ -76,6 +77,18 @@ export default new VueRouter({
                 //Footer是否显示标志量
                 Footer_show: true
             }
+        },
+        {
+            path: "/detail/:skuid",
+            component: Detail,
+            meta: {
+                //Footer是否显示标志量
+                Footer_show: true
+            }
         }
-    ]
+    ],
+    scrollBehavior(to, from, savedPosition) {
+        // return 期望滚动到哪个的位置
+        return { y: 0 }
+    }
 })
