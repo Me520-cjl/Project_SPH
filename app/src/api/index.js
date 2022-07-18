@@ -31,3 +31,18 @@ export const reqGetSearchInfo = (params) => service({ url: '/list', method: "pos
 
 //获取产品详情信息的接口。ＵＲＬ：/api/item/{skuid}
 export const reqGoodsInfo = (skuId) => service({ url: `/item/${skuId}`, method: "get", });
+
+//将产品添加到购物车中（获取更新某一个产品的个数）
+///api/cart/addToCart/{ skuId }/{ skuNum }  POST
+export const reqAddOrUpdateShopCart = (skuId, skuNum) => service({ url: `/cart/addToCart/${skuId}/${skuNum}`, method: "post" })
+
+//获取购物车列表数据接口
+//URL:/api/cart/cartList   method:get 
+export const reqCartList = () => service({ url: '/cart/cartList ', method: 'get' });
+
+//删除购物产品的接口
+//URL:/api/cart/deleteCart/{skuId}   method:DELETE  
+export const reqDeleteCartById = (skuId) => service({ url: `/cart/deleteCart/${skuId}`, method: 'delete' });
+//修改商品的选中状态
+//URL:/api/cart/checkCart/{skuId}/{isChecked}   method:get 
+export const reqUpdateCheckedByid = (skuId, isChecked) => service({ url: `/cart/checkCart/${skuId}/${isChecked}`, method: 'get' });

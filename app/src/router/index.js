@@ -85,7 +85,15 @@ export default new VueRouter({
                 //Footer是否显示标志量
                 Footer_show: true
             }
-        }
+        },
+        // {
+        //     path: "/zddcartsuccess",
+        //     component: AddCartSuccess,
+        //     meta: {
+        //         //Footer是否显示标志量
+        //         Footer_show: true
+        //     }
+        // }
     ],
     scrollBehavior(to, from, savedPosition) {
         // return 期望滚动到哪个的位置
