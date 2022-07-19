@@ -9,6 +9,8 @@ import Search from '@/pages/Search'
 import Login from '@/pages/Login'
 import Register from '@/pages/Register'
 import Detail from '@/pages/Detail'
+import AddCartSuccess from '@/pages/AddCartSuccess'
+import ShopCart from '@/pages/ShopCart'
 //先把VueRouter原型对象的push,先保存一份
 let originPush = VueRouter.prototype.push;
 //重写push|replace
@@ -86,14 +88,19 @@ export default new VueRouter({
                 Footer_show: true
             }
         },
-        // {
-        //     path: "/zddcartsuccess",
-        //     component: AddCartSuccess,
-        //     meta: {
-        //         //Footer是否显示标志量
-        //         Footer_show: true
-        //     }
-        // }
+        {
+            name: "addcartsuccess",
+            path: "/addcartsuccess",
+            component: AddCartSuccess,
+            meta: {
+                //Footer是否显示标志量
+                Footer_show: true
+            }
+        },
+        {
+            path: '/shopcart',
+            component: ShopCart,
+        },
     ],
     scrollBehavior(to, from, savedPosition) {
         // return 期望滚动到哪个的位置

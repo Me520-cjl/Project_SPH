@@ -419,7 +419,7 @@ export default {
         //3:进行路由跳转
         //4:在路由跳转的时候还需要将产品的信息带给下一级的路由组件
         //一些简单的数据skuNum，通过query形式给路由组件传递过去
-        //产品信息的数据【比较复杂:skuInfo】,通过会话存储（不持久化,会话结束数据在消失）
+        //产品信息的数据【比较复杂: skuInfo】,通过会话存储（不持久化,会话结束数据在消失）
         //本地存储|会话存储，一般存储的是字符串
         sessionStorage.setItem("SKUINFO", JSON.stringify(this.skuInfo));
         this.$router.push({
