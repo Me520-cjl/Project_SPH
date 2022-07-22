@@ -46,3 +46,53 @@ export const reqDeleteCartById = (skuId) => service({ url: `/cart/deleteCart/${s
 //修改商品的选中状态
 //URL:/api/cart/checkCart/{skuId}/{isChecked}   method:get 
 export const reqUpdateCheckedByid = (skuId, isChecked) => service({ url: `/cart/checkCart/${skuId}/${isChecked}`, method: 'get' });
+
+//获取验证码
+//URL:/api/user/passport/sendCode/{phone}  method:get
+export const reqGetCode = (phone) => service({ url: `/user/passport/sendCode/${phone}`, method: 'get' });
+
+//注册
+//url:/api/user/passport/register  method:post    phone code password
+
+export const reqUserRegister = (data) => service({ url: '/user/passport/register', data, method: 'post' });
+
+//登录
+//URL:/api/user/passport/login  method:post phone password
+export const reqUserLogin = (data) => service({ url: '/user/passport/login', data, method: 'post' });
+
+//获取用户信息【需要带着用户的token向服务器要用户信息】
+//URL:/api/user/passport/auth/getUserInfo  method:get 
+export const reqUserInfo = () => service({ url: '/user/passport/auth/getUserInfo', method: 'get' });
+
+
+//退出登录
+//URL:/api/user/passport/logout  get
+export const reqLogout = () => service({ url: '/user/passport/logout', method: 'get' });
+
+
+//获取用户地址信息
+//URL:/api/user/userAddress/auth/findUserAddressList  method:get
+export const reqAddressInfo = () => service({ url: '/user/userAddress/auth/findUserAddressList', method: 'get' });
+
+//获取商品清单
+//URL:/api/order/auth/trade   method:get
+export const reqOrderInfo = () => service({ url: '/order/auth/trade', method: 'get' });
+
+
+//提交订单的接口
+//URL:/api/order/auth/submitOrder?tradeNo={tradeNo}  method:post
+
+export const reqSubmitOrder = (tradeNo, data) => service({ url: `/order/auth/submitOrder?tradeNo=${tradeNo}`, data, method: 'post' });
+
+//获取支付信息
+//URL:/api/payment/weixin/createNative/{orderId}  GET
+export const reqPayInfo = (orderId) => service({ url: `/payment/weixin/createNative/${orderId}`, method: 'get' });
+
+//获取支付订单状态
+//URL:/api/payment/weixin/queryPayStatus/{orderId}  get
+export const reqPayStatus = (orderId) => service({ url: `/payment/weixin/queryPayStatus/${orderId}`, method: 'get' });
+
+
+//获取个人中心的数据
+//api/order/auth/{page}/{limit}  get 
+export const reqMyOrderList = (page, limit) => service({ url: `/order/auth/${page}/${limit}`, method: 'get' });
