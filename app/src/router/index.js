@@ -14,7 +14,11 @@ import Detail from '@/pages/Detail'
 import AddCartSuccess from '@/pages/AddCartSuccess'
 import ShopCart from '@/pages/ShopCart'
 import Trade from '@/pages/Trade'
-// import Pay from '@/pages/Pay'
+import Pay from '@/pages/Pay'
+import PaySuccess from "@/pages/PaySuccess";
+import Center from "@/pages/Center";
+import MyOrder from '@/pages/Center/myOrder'
+import GroupBuy from '@/pages/Center/groupOrder'
 //先把VueRouter原型对象的push,先保存一份
 let originPush = VueRouter.prototype.push;
 //重写push|replace
@@ -76,12 +80,9 @@ let router = new VueRouter({
                 }
             },
             {
-                path: "/",
-                component: Home,
-                meta: {
-                    //Footer是否显示标志量
-                    Footer_show: true
-                }
+                path: '/',
+                component: () =>
+                    import ('@/pages/Home')
             },
             {
                 path: "/detail/:skuid",
@@ -115,15 +116,56 @@ let router = new VueRouter({
                     Footer_show: true,
                 }
             },
-            //  {
-            //     path: '/pay',
-            //     component: Pay,
-            //     meta: {
-            //         //Footer是否显示标志量
-            //         Footer_show: true,
-            //     }
-            // },
+            {
+                path: '/pay',
+                component: Pay,
+                meta: {
+                    //Footer是否显示标志量
+                    Footer_show: true,
+                },
+                // 将query参数映射成props传递给路由组件
+                props: route => ({ orderId: route.query.orderId }),
 
+                /* 只能从交易界面, 才能跳转到支付界面 */
+                beforeEnter(to, from, next) {
+                    if (from.path === '/trade') {
+                        next()
+                    } else {
+                        next('/trade')
+                    }
+                }
+            },
+            {
+                path: '/paysuccess',
+                component: PaySuccess,
+                /* 只有从支付界面, 才能跳转到支付成功的界面 */
+                beforeEnter(to, from, next) {
+                    if (from.path === '/pay') {
+                        next()
+                    } else {
+                        next('/pay')
+                    }
+                }
+            },
+            {
+                path: '/center',
+                component: Center,
+                children: [{
+                        // path: '/center/myorder',
+                        path: 'myorder',
+                        component: MyOrder,
+                    },
+                    {
+                        path: 'groupbuy',
+                        component: GroupBuy,
+                    },
+
+                    {
+                        path: '',
+                        redirect: 'myorder'
+                    }
+                ]
+            },
         ],
         scrollBehavior(to, from, savedPosition) {
             // return 期望滚动到哪个的位置

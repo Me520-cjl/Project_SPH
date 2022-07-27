@@ -1,4 +1,7 @@
 module.exports = {
+    productionSourceMap: false,
+    // 关闭ESLINT校验工具
+    // publicPath: './',
     lintOnSave: false,
     //代理跨域
     devServer: {
